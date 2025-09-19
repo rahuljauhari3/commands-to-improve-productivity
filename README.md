@@ -1,12 +1,48 @@
-# LLama.cpp
+Table of Contents
+=================
+* [uv python](#uv-python)
+* [LLama.cpp](#llama-cpp)
+* [MLX](#mlx)
 
-# Install LLama.cpp
+
+# uv python
+
+#### Install uv python:
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | less
+```
+
+#### Create a new virtual environment:
+```bash
+uv venv
+```
+
+#### Install dependencies:
+```bash
+uv pip install -r requirements.txt
+```
+
+#### Run the script:
+```bash
+uv run python script.py
+```
+
+#### Activate the virtual environment:
+```bash
+source .venv/bin/activate
+```
+
+
+
+# LLama-cpp
+
+#### Install LLama.cpp
 
 ```bash
 brew install llama.cpp
 ```
 
-# How to Use LLama.cpp
+#### How to Use LLama.cpp
 ```bash
 # Use a local model file
 llama-cli -m my_model.gguf
@@ -18,11 +54,12 @@ llama-cli -hf ggml-org/gemma-3-1b-it-GGUF
 llama-server -hf ggml-org/gemma-3-1b-it-GGUF
 ```
 
-# What is MLX?
+# MLX
+#### What is MLX?
 
 [MLX](https://github.com/ml-explore/mlx) is an open-source machine learning framework developed by Apple, designed to provide efficient and flexible tools for training and running machine learning models, especially on Apple Silicon (M1/M2/M3) hardware. MLX is optimized for performance and ease of use, making it a great choice for both research and production environments.
 
-# How to Install MLX
+#### How to Install MLX
 
 MLX requires macOS and Apple Silicon (M1/M2/M3). To install MLX, you need Python 3.8 or newer and a recent version of pip.
 
@@ -50,7 +87,7 @@ MLX requires macOS and Apple Silicon (M1/M2/M3). To install MLX, you need Python
 
 To download a pre-trained MLX model, you can use the `mlx` command-line tool. For example, to download a model from the Hugging Face Hub, run:
 
-# How to Use MLX
+#### How to Use MLX
 
 MLX provides a simple API for running and training machine learning models. Here’s a basic example of how to use MLX to perform a simple tensor operation:
 
