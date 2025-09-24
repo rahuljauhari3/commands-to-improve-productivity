@@ -3,7 +3,20 @@ Table of Contents
 * [uv python](#uv-python)
 * [LLama.cpp](#llama-cpp)
 * [MLX](#mlx)
+* [System](#system)
 
+# System
+```bash
+free -h # check memory
+df -h # check disk
+du -sh * # check disk usage
+top # check CPU usage
+htop # check CPU usage
+sudo apt install nmon # install nmon
+nmon # check CPU usage
+nmon -f # check CPU usage
+cd - # go back to the previous directory
+```
 
 # uv python
 
@@ -94,3 +107,24 @@ MLX provides a simple API for running and training machine learning models. Here
 ```bash
 mlx_lm.chat --model <model_path>
 ```
+
+# Docker 
+
+#### How to Install Docker
+
+```bash
+brew install docker
+```
+
+#### How to Use Docker
+
+```bash
+docker run -it ubuntu:latest
+```
+
+#### Run a container
+
+```bash
+docker run -it ubuntu:latest
+```
+

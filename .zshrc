@@ -1,6 +1,7 @@
+alias ls='ls -G'
+alias ll='ls -ltas'
 alias cls='clear'
-alias ll='ls -las'
-alias l='ls'
+alias l='ls -G'
 alias cr='function _conda_remove() { for env in "$@"; do conda remove --name $env --all -y; done }; _conda_remove'
 
 conda-create() {
