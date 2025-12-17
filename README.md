@@ -1,9 +1,10 @@
 Table of Contents
 =================
-* [uv python](#uv-python)
-* [LLama.cpp](#llama-cpp)
-* [MLX](#mlx)
 * [System](#system)
+* [uv python](#uv-python)
+* [LLama-cpp](#llama-cpp)
+* [MLX](#mlx)
+* [Docker](#docker)
 
 # System
 ```bash
@@ -13,9 +14,17 @@ du -sh * # check disk usage
 top # check CPU usage
 htop # check CPU usage
 sudo apt install nmon # install nmon
+sudo apt install fd-find # install fd-find
+alias fd='fdfind' # alias fd to fdfind
 nmon # check CPU usage
 nmon -f # check CPU usage
 cd - # go back to the previous directory
+sudo bash -c "echo on > /sys/devices/system/cpu/smt/control" # enable SMT
+sudo bash -c "echo off > /sys/devices/system/cpu/smt/control" # disable SMT
+cat /sys/kernel/mm/transparent_hugepage/enabled # check transparent hugepage status
+echo always | sudo tee /sys/kernel/mm/transparent_hugepage/enabled # enable transparent hugepage
+echo madvise | sudo tee /sys/kernel/mm/transparent_hugepage/enabled # enable transparent hugepage
+echo never | sudo tee /sys/kernel/mm/transparent_hugepage/enabled # disable transparent hugepage
 ```
 
 # uv python
@@ -108,7 +117,7 @@ MLX provides a simple API for running and training machine learning models. Here
 mlx_lm.chat --model <model_path>
 ```
 
-# Docker 
+# Docker
 
 #### How to Install Docker
 
@@ -125,6 +134,47 @@ docker run -it ubuntu:latest
 #### Run a container
 
 ```bash
-docker run -it ubuntu:latest
+docker run -it --privileged -v /home:/home ubuntu:latest
 ```
 
+#### Exec into a container
+
+```bash
+docker exec -it <container_id> /bin/bash
+```
+
+#### Stop a container
+
+```bash
+docker stop <container_id>
+```
+
+#### Remove a container
+
+```bash
+docker rm <container_id>
+```
+
+#### Start a container
+
+```bash
+docker start <container_id>
+```
+
+#### Restart a container
+
+```bash
+docker restart <container_id>
+```
+
+#### List all containers
+
+```bash
+docker ps -a
+```
+
+#### Prune all containers, images and volumes
+
+```bash
+sudo docker system prune -a --volumes --force && sudo docker container ls -aq | xargs -r sudo docker container rm -f && sudo docker image ls -aq | xargs -r sudo docker image rm -f
+```
