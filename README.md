@@ -1,4 +1,4 @@
-<img width="534" height="44" alt="image" src="https://github.com/user-attachments/assets/01b76ea6-d3e0-494a-9607-312a7ae4e020" />Table of Contents
+Table of Contents
 =================
 * [System](#system)
 * [uv python](#uv-python)
