@@ -1,4 +1,4 @@
-Table of Contents
+<img width="534" height="44" alt="image" src="https://github.com/user-attachments/assets/01b76ea6-d3e0-494a-9607-312a7ae4e020" />Table of Contents
 =================
 * [System](#system)
 * [uv python](#uv-python)
@@ -25,6 +25,63 @@ cat /sys/kernel/mm/transparent_hugepage/enabled # check transparent hugepage sta
 echo always | sudo tee /sys/kernel/mm/transparent_hugepage/enabled # enable transparent hugepage
 echo madvise | sudo tee /sys/kernel/mm/transparent_hugepage/enabled # enable transparent hugepage
 echo never | sudo tee /sys/kernel/mm/transparent_hugepage/enabled # disable transparent hugepage
+```
+
+# Bazel
+```bash
+sudo apt install apt-transport-https curl gnupg -y
+curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor >bazel-archive-keyring.gpg
+sudo mv bazel-archive-keyring.gpg /usr/share/keyrings
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
+
+sudo apt update && sudo apt install bazel-6.5.0
+sudo apt update && sudo apt install bazel-7.4.1
+sudo apt install bazel-bootstrap
+
+bazelisk
+sudo curl -L https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64 -o /usr/local/bin/bazel
+sudo chmod +x /usr/local/bin/bazel
+```
+
+# OpenMP
+
+#### Install LLVM OpenMP:
+```bash
+conda activate <env name>
+conda install -c conda-forge llvm-openmp=18.1.8=hf5423f3_1 -y
+LD_PRELOAD=<path>/libiomp5.so:$LD_PRELOAD
+```
+
+#### IOMP OpenMP:
+```bash
+pip install intel-openmp
+export LD_PRELOAD="$HOME/miniconda3/envs/base/lib/libiomp5.so:$LD_PRELOAD"
+```
+
+# GCC
+```bash
+The below steps should simply work , just one user can install it, reflects for all users (if OS is Ubuntu 22 or above). For Ubuntu 20 or below , you might have to build gcc from source
+ 
+Keep existing GCC and install gcc13
+ 
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt update
+sudo apt install gcc-13 g++-13
+ 
+ 
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 60
+sudo update-alternatives --config gcc  (choose gcc 13 option)
+ 
+ 
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-13 60
+sudo update-alternatives --config g++  (choose gcc 13 option)
+ 
+ 
+replace existing GCC with GCC13
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt update
+sudo apt install gcc-13 g++-13
+sudo ln -sf /usr/bin/gcc-13 /usr/bin/gcc
 ```
 
 # uv python
