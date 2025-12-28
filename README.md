@@ -88,7 +88,7 @@ sudo ln -sf /usr/bin/gcc-13 /usr/bin/gcc
 
 #### Install uv python:
 ```bash
-curl -LsSf https://astral.sh/uv/install.sh | less
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 #### Create a new virtual environment:
