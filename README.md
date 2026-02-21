@@ -1,10 +1,14 @@
 Table of Contents
 =================
 * [System](#system)
+* [Bazel](#bazel)
+* [OpenMP](#openmp)
+* [GCC](#gcc)
 * [uv python](#uv-python)
 * [LLama-cpp](#llama-cpp)
 * [MLX](#mlx)
 * [Docker](#docker)
+* [GDB](#gdb)
 
 # System
 ```bash
@@ -61,22 +65,19 @@ export LD_PRELOAD="$HOME/miniconda3/envs/base/lib/libiomp5.so:$LD_PRELOAD"
 # GCC
 ```bash
 The below steps should simply work , just one user can install it, reflects for all users (if OS is Ubuntu 22 or above). For Ubuntu 20 or below , you might have to build gcc from source
- 
+
 Keep existing GCC and install gcc13
- 
+
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 sudo apt update
 sudo apt install gcc-13 g++-13
- 
- 
+
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 60
 sudo update-alternatives --config gcc  (choose gcc 13 option)
- 
- 
+
 sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-13 60
 sudo update-alternatives --config g++  (choose gcc 13 option)
- 
- 
+
 replace existing GCC with GCC13
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 sudo apt update
@@ -89,10 +90,11 @@ sudo ln -sf /usr/bin/gcc-13 /usr/bin/gcc
 #### Install uv python:
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
-```
 
-#### Create a new virtual environment:
-```bash
+# Create a new project:
+uv new my-project
+
+# Create a new virtual environment in the current directory:
 uv venv
 ```
 
@@ -234,4 +236,29 @@ docker ps -a
 
 ```bash
 sudo docker system prune -a --volumes --force && sudo docker container ls -aq | xargs -r sudo docker container rm -f && sudo docker image ls -aq | xargs -r sudo docker image rm -f
+```
+
+# GDB
+#### Install GDB
+
+```bash
+sudo apt install gdb
+```
+
+#### Use GDB to debug a program
+
+```bash
+gdb ./my_program
+```
+
+#### Set a breakpoint
+
+```bash
+(gdb) break main
+```
+#### Run and backtrace the program
+
+```bash
+(gdb) run
+(gdb) bt
 ```
