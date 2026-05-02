@@ -1,5 +1,6 @@
 Table of Contents
 =================
+* [brew](#brew)
 * [System](#system)
 * [Bazel](#bazel)
 * [OpenMP](#openmp)
@@ -9,6 +10,46 @@ Table of Contents
 * [MLX](#mlx)
 * [Docker](#docker)
 * [GDB](#gdb)
+
+# brew
+Update brew:
+```bash
+brew update
+```
+Upgrade a package:
+```bash
+brew upgrade <package>
+```
+Upgrade all packages:
+```bash
+brew upgrade
+```
+List all installed packages:
+```bash
+brew list
+```
+List all installed packages and their versions:
+```bash
+brew list --versions
+```
+Uninstall a package:
+```bash
+brew uninstall <package>
+```
+List all available packages:
+```bash
+brew search <package>
+```
+Install a package:
+```bash
+brew install <package>
+```
+
+Clean up:
+```bash
+brew cleanup
+```
+
 
 # System
 ```bash
