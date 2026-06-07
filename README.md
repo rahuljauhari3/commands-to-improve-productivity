@@ -10,6 +10,8 @@ Table of Contents
 * [MLX](#mlx)
 * [Docker](#docker)
 * [GDB](#gdb)
+* [Vim](#vim)
+* [Tmux](#tmux)
 
 # brew
 Update brew:
@@ -303,3 +305,127 @@ gdb ./my_program
 (gdb) run
 (gdb) bt
 ```
+
+# Vim
+
+#### Basic Commands
+* `i` : Enter insert mode (to start typing)
+* `Esc` : Exit insert mode and return to normal mode
+* `:w` : Save the file
+* `:q` : Quit Vim
+* `:wq` : Save and quit
+* `:q!` : Quit without saving
+
+#### Navigation
+* `h`, `j`, `k`, `l` : Left, Down, Up, Right
+* `gg` : Go to the top of the file
+* `G` : Go to the bottom of the file
+* `0` : Move to the beginning of the line
+* `$` : Move to the end of the line
+
+#### Mouse Support
+To enable mouse support (allows clicking to move cursor and scrolling):
+```bash
+:set mouse=a
+```
+To disable it:
+```bash
+:set mouse=
+```
+
+#### Copy and Paste
+* `v` : Enter visual mode to select text
+* `y` : Yank (copy) the selected text
+* `p` : Paste after the cursor
+* `P` : Paste before the cursor
+* `yy` : Yank the current line
+* `dd` : Delete (cut) the current line
+
+#### Search
+* `/pattern` : Search for "pattern" from the cursor forward
+* `?pattern` : Search for "pattern" from the cursor backward
+* `n` : Jump to the next occurrence
+* `N` : Jump to the previous occurrence
+
+#### Working with Multiple Files (Buffers)
+* **Open multiple files**:
+  ```bash
+  vim file1.txt file2.txt file3.txt
+  ```
+* **List open files (buffers)**: `:ls`
+* **Go to next file**: `:bn` (buffer next)
+* **Go to previous file**: `:bp` (buffer previous)
+* **Go to a specific file**: `:b <number>` (e.g., `:b 2`)
+* **Close current buffer**: `:bd` (buffer delete)
+
+#### Persistence (Making settings permanent)
+To make your settings (like `:set mouse=a`) load every time you open Vim, add them to a file named `.vimrc` in your home directory.
+
+1. Open (or create) the file:
+   ```bash
+   vim ~/.vimrc
+   ```
+2. Add the commands you want (without the colon):
+   ```vim
+   set mouse=a
+   set number        " Show line numbers
+   set relativenumber " Show relative line numbers
+   syntax on         " Enable syntax highlighting
+   set tabstop=4     " Set tab width to 4 spaces
+   set shiftwidth=4  " Set indent width to 4 spaces
+   set expandtab     " Use spaces instead of tabs
+   ```
+3. Save and exit (`:wq`).
+
+# Tmux
+
+#### Session Management
+* **Create a named session**:
+  ```bash
+  tmux new -s <session_name>
+  ```
+* **List all sessions**:
+  ```bash
+  tmux ls
+  ```
+* **Attach to a session**:
+  ```bash
+  tmux attach -t <session_name>
+  ```
+* **Rename current session**:
+  Press `Ctrl+b` then `:` and type `rename-session <new_name>` (or `Ctrl+b` then `$`)
+* **Detach from session**:
+  Press `Ctrl+b` then `d`
+
+#### Window & Pane Navigation
+* **New Window**: `Ctrl+b` then `c`
+* **Switch Windows**: `Ctrl+b` then `0-9`
+* **Split Pane (Horizontal)**: `Ctrl+b` then `"`
+* **Split Pane (Vertical)**: `Ctrl+b` then `%`
+* **Switch Panes**: `Ctrl+b` then `Arrow Keys`
+
+#### Mouse Support
+To enable clicking on windows, resizing panes, and scrolling with the mouse:
+1. Press `Ctrl+b` then `:`
+2. Type `set -g mouse on`
+
+#### Persistence (Making Tmux settings permanent)
+To keep mouse support and other settings every time you start Tmux, create a `.tmux.conf` file in your home directory:
+
+1. Open (or create) the file:
+   ```bash
+   vim ~/.tmux.conf
+   ```
+2. Add your settings:
+   ```tmux
+   # Enable mouse support
+   set -g mouse on
+
+   # (Optional) Use Alt-arrow keys without prefix key to switch panes
+   bind -n M-Left select-pane -L
+   bind -n M-Right select-pane -R
+   bind -n M-Up select-pane -U
+   bind -n M-Down select-pane -D
+   ```
+3. Reload the config (inside Tmux):
+   Press `Ctrl+b` then `:` and type `source-file ~/.tmux.conf`
