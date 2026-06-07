@@ -12,6 +12,7 @@ Table of Contents
 * [GDB](#gdb)
 * [Vim](#vim)
 * [Tmux](#tmux)
+* [Tools to Study](#tools-to-study)
 
 # brew
 Update brew:
@@ -427,5 +428,33 @@ To keep mouse support and other settings every time you start Tmux, create a `.t
    bind -n M-Up select-pane -U
    bind -n M-Down select-pane -D
    ```
-3. Reload the config (inside Tmux):
-   Press `Ctrl+b` then `:` and type `source-file ~/.tmux.conf`
+# Reload the config (inside Tmux):
+Press `Ctrl+b` then `:` and type `source-file ~/.tmux.conf`
+
+# Tools to Study
+
+To take your terminal productivity to the "pro" level, focus on tools that reduce cognitive load and keystrokes.
+
+#### 1. Fuzzy Finder (`fzf`)
+A general-purpose command-line fuzzy finder.
+* **Why:** Integrates with Vim, Tmux, and your shell history. Map it to `Ctrl+r` to never manually search history again.
+
+#### 2. Modern CLI Suite (Rust-based)
+Faster, modern replacements for classic Unix tools:
+* **`ripgrep` (`rg`)**: The fastest tool for searching text within files (respects `.gitignore`).
+* **`fd`**: A faster, user-friendly alternative to `find`.
+* **`zoxide` (`z`)**: A smarter `cd` command that learns your most visited directories.
+* **`bat`**: A `cat` clone with syntax highlighting and Git integration.
+
+#### 3. Git TUI (`lazygit`)
+A Terminal User Interface for Git.
+* **Why:** Makes complex operations like interactive rebasing and staging specific lines incredibly fast without leaving the terminal.
+
+#### 4. Dotfile Management (`GNU Stow`)
+Organize your `.vimrc`, `.tmux.conf`, and other configs in one Git-synced folder and symlink them easily.
+
+#### 5. Environment Management (`direnv`)
+Automatically load/unload environment variables and virtual environments as you enter/exit directories.
+
+#### 6. Tiling Window Manager
+Automate window placement on your OS (e.g., `yabai` or `Amethyst` for macOS).
