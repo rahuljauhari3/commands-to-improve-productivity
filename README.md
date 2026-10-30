@@ -2,6 +2,7 @@ Table of Contents
 =================
 * [brew](#brew)
 * [System](#system)
+* [User Management](#user-management)
 * [Bazel](#bazel)
 * [OpenMP](#openmp)
 * [GCC](#gcc)
@@ -73,6 +74,65 @@ cat /sys/kernel/mm/transparent_hugepage/enabled # check transparent hugepage sta
 echo always | sudo tee /sys/kernel/mm/transparent_hugepage/enabled # enable transparent hugepage
 echo madvise | sudo tee /sys/kernel/mm/transparent_hugepage/enabled # enable transparent hugepage
 echo never | sudo tee /sys/kernel/mm/transparent_hugepage/enabled # disable transparent hugepage
+```
+
+# User Management
+
+#### List users
+```bash
+awk -F: '$3 >= 1000 && $3 < 65534 {print $1}' /etc/passwd # list regular (human) user accounts
+lastlog -u <user> # show a user's last login
+```
+
+#### Backup user data
+```bash
+sudo du -sch /home/<user> # check size of user's home dir
+sudo tar -czf /data/<user>_backup.tar.gz -C /home <user> # create compressed backup on the server
+rsync -avh --progress --partial -e "ssh -p 2222" <me>@<server-ip>:/data/<user>_backup.tar.gz ~/server_backup/ # (run on laptop) pull backup locally
+```
+
+#### Remove a user
+```bash
+pgrep -u <user> -l # check running processes (skip user if any)
+who | grep <user> # check if user is logged in
+id <user> # show uid, gid and groups
+getent passwd <user> # show account details (home, shell)
+sudo usermod -L <user> # lock password
+sudo usermod -e 1 <user> # expire account (blocks key logins too)
+sudo ls -la /home/<user>/.ssh/ # list user's ssh keys
+sudo grep -rl "<user>@" /root/.ssh/authorized_keys /home/*/.ssh/authorized_keys 2>/dev/null # find their key in other accounts
+sudo rm -rf /home/<user>/.ssh # remove user's ssh keys
+sudo rm -f /etc/ssh/authorized_keys/<user> # remove keys from custom location (if used)
+sudo pkill -KILL -u <user> # kill user's processes if userdel says "in use"
+sudo userdel -r <user> # delete user + home dir + mail spool (irreversible)
+getent passwd <user> # verify: should print nothing
+ls /home/<user> # verify: should say "No such file"
+```
+
+#### Add a user
+```bash
+sudo adduser <user> # create user (Ubuntu/Debian, interactive)
+sudo useradd -m -s /bin/bash <user> # create user (RHEL/Rocky)
+sudo passwd <user> # set password
+id <user> # verify groups
+```
+
+#### Add a user's ssh key
+```bash
+sudo mkdir -p /home/<user>/.ssh # create .ssh dir
+echo "<public-key>" | sudo tee -a /home/<user>/.ssh/authorized_keys > /dev/null # append public key
+sudo chown -R <user>:<user> /home/<user>/.ssh # fix owner (else ssh ignores the key)
+sudo chmod 700 /home/<user>/.ssh # dir permissions
+sudo chmod 600 /home/<user>/.ssh/authorized_keys # file permissions
+```
+
+#### Sudo / Docker access
+```bash
+sudo usermod -aG sudo <user> # give sudo (Ubuntu); use wheel on RHEL
+echo "<user> ALL=(ALL:ALL) ALL" | sudo tee /etc/sudoers.d/<user> # sudo via a dedicated file
+sudo chmod 440 /etc/sudoers.d/<user> # required sudoers file permissions
+sudo visudo -c # validate sudoers syntax
+sudo usermod -aG docker <user> # docker access only (root-equivalent!)
 ```
 
 # Bazel
